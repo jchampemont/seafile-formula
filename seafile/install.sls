@@ -29,6 +29,7 @@ seafile.installed:
     - mode: 644
     - makedirs: True
     - skip_verify: True
+    - replace: False
   archive.extracted:
     - name: {{ seafile.path }}/
     - source: {{ seafile.path }}/installs/seafile-server_{{ seafile.version }}_{{ seafile.architecture }}.tar.gz
