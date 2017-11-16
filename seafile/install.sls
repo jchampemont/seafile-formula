@@ -84,7 +84,7 @@ seahub.config:
 seahub.service:
   file.managed:
     - name: /etc/systemd/system/seahub.service
-    - source: salt://files/seafile/seahub.service
+    - source: salt://seafile/files/seahub.service
     - user: root
     - group: root
     - mode: 754
