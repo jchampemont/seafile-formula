@@ -8,20 +8,18 @@ Installs the Seafile personal cloud.
 Example pillar:
 
 ```
-ghost:
-  install_user: deploy
-  path: /apps/ghost
-  url: https://blog.example.com
-  port: 2368
-  listen_addr: 0.0.0.0
-  db: mysql # or sqlite3
-  mysql:
-    host: localhost
-    user: ghost
-    pass: password
-    database: ghost
-  sqlite: /apps/ghost.db
-  themes:
-    - name: myblog
-      git_repository: https://github.com/jchampemont/myblog-ghost-theme.git
+seafile:
+  user: deploy
+  path: /apps/seafile
+  version: 6.2.3
+  architecture: x86-64
+  config:
+    name: seafile
+    domain: seafile.exemple.com
+    admin: admin@seafile.exemple.com
+    password: password
+    mysql:
+      server: localhost
+      user: seafile
+      password: password
 ```
