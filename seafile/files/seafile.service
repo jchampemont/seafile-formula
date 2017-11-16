@@ -1,0 +1,13 @@
+[Unit]
+Description=Seafile server
+Wants=network-online.target
+
+[Service]
+ExecStart={{ seafile.path }}/seafile-server-latest/seafile.sh start
+ExecStop={{ seafile.path }}/seafile-server-latest/seafile.sh stop
+User={{ seafile.user }}
+Type=oneshot
+RemainAfterExit=yes
+
+[Install]
+WantedBy=multi-user.target
