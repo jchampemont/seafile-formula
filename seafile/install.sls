@@ -38,7 +38,7 @@ seafile.installed:
 
 seafile.setup-helper:
   file.managed:
-    - name: {{ seafile.path }}/seafile-server-{{ seafile.version }}_{{ seafile.architecture }}/seafile-setup.sh
+    - name: {{ seafile.path }}/seafile-server-{{ seafile.version }}/seafile-setup.sh
     - source: salt://seafile/files/seafile-setup.sh
     - user: {{ seafile.user }}
     - group: {{ seafile.user }}
