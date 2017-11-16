@@ -12,5 +12,3 @@ seafile:
       server: localhost
       user: seafile
       password: password
-
-  
