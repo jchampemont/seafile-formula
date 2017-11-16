@@ -23,7 +23,7 @@ seafile.dependencies:
 seafile.installed:
   file.managed:
     - name: {{ seafile.path }}/installs/seafile-server_{{ seafile.version }}_{{ seafile.architecture }}.tar.gz
-    - source: https://download.seadrive.org/seafile-{{ seafile.version }}_{{ seafile.architecture }}.tar.gz
+    - source: https://download.seadrive.org/seafile-server_{{ seafile.version }}_{{ seafile.architecture }}.tar.gz
     - user: {{ seafile.user }}
     - group: {{ seafile.user }}
     - mode: 644
