@@ -1,6 +1,8 @@
 # seafile-formula
 Formula for the Seafile personal cloud (https://www.seafile.com/).
 
+See the full [Salt Formulas installation and usage instructions](http://docs.saltstack.com/en/latest/topics/development/conventions/formulas.html).
+
 ## Available states
 ### `seafile.install`
 Installs the Seafile personal cloud.
