@@ -1,4 +1,4 @@
-{% from 'seafile/map.jinja' import seafile_settings with context %}
+{% from 'seafile/map.jinja' import seafile with context %}
 
 seafile.dependencies:
   pkg.installed:
@@ -14,46 +14,46 @@ seafile.dependencies:
       - python-memcache
       - python-urllib3
 
-{{ seafile_settings.path }}:
+{{ seafile.path }}:
   file.directory:
-    - user: {{ seafile_settings.user }}
-    - group: {{ seafile_settings.user }}
+    - user: {{ seafile.user }}
+    - group: {{ seafile.user }}
     - dir_mode: 775
 
 seafile.installed:
   file.managed:
-    - name: {{ seafile_settings.path }}/installs/seafile-server_{{ seafile_settings.version }}_{{ seafile_settings.architecture }}.tar.gz
-    - source: https://download.seadrive.org/seafile-server_{{ seafile_settings.version }}_{{ seafile_settings.architecture }}.tar.gz
-    - user: {{ seafile_settings.user }}
-    - group: {{ seafile_settings.user }}
+    - name: {{ seafile.path }}/installs/seafile-server_{{ seafile.version }}_{{ seafile.architecture }}.tar.gz
+    - source: https://download.seadrive.org/seafile-server_{{ seafile.version }}_{{ seafile.architecture }}.tar.gz
+    - user: {{ seafile.user }}
+    - group: {{ seafile.user }}
     - mode: 644
     - makedirs: True
     - skip_verify: True
     - replace: False
   archive.extracted:
-    - name: {{ seafile_settings.path }}/
-    - source: {{ seafile_settings.path }}/installs/seafile-server_{{ seafile_settings.version }}_{{ seafile_settings.architecture }}.tar.gz
-    - user: {{ seafile_settings.user }}
-    - group: {{ seafile_settings.user }}
-    - if_missing: {{ seafile_settings.path }}/seafile-server-{{ seafile_settings.version }}/
+    - name: {{ seafile.path }}/
+    - source: {{ seafile.path }}/installs/seafile-server_{{ seafile.version }}_{{ seafile.architecture }}.tar.gz
+    - user: {{ seafile.user }}
+    - group: {{ seafile.user }}
+    - if_missing: {{ seafile.path }}/seafile-server-{{ seafile.version }}/
 
 seafile.setup-helper:
   file.managed:
-    - name: {{ seafile_settings.path }}/seafile-server-{{ seafile_settings.version }}/seafile-setup.sh
+    - name: {{ seafile.path }}/seafile-server-{{ seafile.version }}/seafile-setup.sh
     - source: salt://seafile/files/seafile-setup.sh
-    - user: {{ seafile_settings.user }}
-    - group: {{ seafile_settings.user }}
+    - user: {{ seafile.user }}
+    - group: {{ seafile.user }}
     - mode: 754 
     - template: jinja
     - context:
-        config: {{ seafile_settings.config }}
-        dir: {{ seafile_settings.path }}
+        config: {{ seafile.config }}
+        dir: {{ seafile.path }}
 
 seafile.setup:
   cmd.run:
-    - name: cd {{ seafile_settings.path }}/seafile-server-{{ seafile_settings.version }}/ && ./setup-seafile-mysql.sh auto -n {{ seafile_settings.config.name }} -i {{ seafile_settings.config.domain }} -d {{ seafile_settings.path }}/seafile-data -e 1 -o {{ seafile_settings.config.mysql.server }} -u {{ seafile_settings.config.mysql.user }} -w {{ seafile_settings.config.mysql.password }} -q % -c ccnet -s seafile -b seahub && ./seafile-setup.sh
-    - runas: {{ seafile_settings.user }}
-    - unless: "ls {{ seafile_settings.path }}/ccnet"
+    - name: cd {{ seafile.path }}/seafile-server-{{ seafile.version }}/ && ./setup-seafile-mysql.sh auto -n {{ seafile.config.name }} -i {{ seafile.config.domain }} -d {{ seafile.path }}/seafile-data -e 1 -o {{ seafile.config.mysql.server }} -u {{ seafile.config.mysql.user }} -w {{ seafile.config.mysql.password }} -q % -c ccnet -s seafile -b seahub && ./seafile-setup.sh
+    - runas: {{ seafile.user }}
+    - unless: "ls {{ seafile.path }}/ccnet"
 
 seafile.service:
   file.managed:
@@ -64,7 +64,7 @@ seafile.service:
     - mode: 754
     - template: jinja
     - context:
-        seafile: {{ seafile_settings }}
+        seafile: {{ seafile }}
 
   module.run:
     - name: service.systemctl_reload
@@ -77,9 +77,9 @@ seafile.service:
 
 seahub.config:
   file.replace:
-    - name: {{ seafile_settings.path }}/conf/ccnet.conf
-    - pattern: SERVICE_URL = http://{{ seafile_settings.config.domain }}:8000
-    - repl: SERVICE_URL = https://{{ seafile_settings.config.domain }}/seafhttp
+    - name: {{ seafile.path }}/conf/ccnet.conf
+    - pattern: SERVICE_URL = http://{{ seafile.config.domain }}:8000
+    - repl: SERVICE_URL = https://{{ seafile.config.domain }}/seafhttp
     - count: 1
 
 seahub.service:
@@ -91,7 +91,7 @@ seahub.service:
     - mode: 754
     - template: jinja
     - context:
-        seafile: {{ seafile_settings }}
+        seafile: {{ seafile }}
 
   module.run:
     - name: service.systemctl_reload
