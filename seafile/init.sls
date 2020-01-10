@@ -46,8 +46,8 @@ seafile.setup-helper:
     - mode: 754 
     - template: jinja
     - context:
-        config: {{ seafile.config }}
-        dir: {{ seafile.path }}
+        config: {{ seafile.config|tojson }}
+        dir: {{ seafile.path|tojson }}
 
 seafile.setup:
   cmd.run:
@@ -64,7 +64,7 @@ seafile.service:
     - mode: 754
     - template: jinja
     - context:
-        seafile: {{ seafile }}
+        seafile: {{ seafile|tojson }}
 
   module.run:
     - name: service.systemctl_reload
@@ -91,7 +91,7 @@ seahub.service:
     - mode: 754
     - template: jinja
     - context:
-        seafile: {{ seafile }}
+        seafile: {{ seafile|tojson }}
 
   module.run:
     - name: service.systemctl_reload
