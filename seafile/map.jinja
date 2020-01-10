@@ -1,2 +1,2 @@
 {% import_yaml 'seafile/defaults.yaml' as default_settings %}
-{% set seafile = salt['pillar.get']('seafile', default=default_settings.get('seafile'), merge=True) %}
+{% set seafile_settings = salt['pillar.get']('seafile', default=default_settings.get('seafile'), merge=True) %}
