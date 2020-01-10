@@ -5,8 +5,8 @@ After=seafile.service
 
 [Service]
 ExecStart={{ seafile }}/seafile-server-latest/seahub.sh start
-ExecStop={{ seafile.path }}/seafile-server-latest/seahub.sh stop
-User={{ seafile.user }}
+ExecStop={{ seafile }}/seafile-server-latest/seahub.sh stop
+User={{ seafile }}
 Type=oneshot
 RemainAfterExit=yes
 
