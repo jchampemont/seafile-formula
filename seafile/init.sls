@@ -8,7 +8,6 @@ seafile.dependencies:
       - python2.7
       - libpython2.7
       - python-setuptools
-      - python-imaging
       - python-ldap
       - python-mysqldb
       - python-memcache
